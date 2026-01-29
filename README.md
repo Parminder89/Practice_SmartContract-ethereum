@@ -85,8 +85,54 @@ contract NestedMappingPractice {
     }
 
 }
+```
 
+### Nested Mapping using struct
+This is a practive mapping from address to string and to boolen
+
+```solidity
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.26;
+
+contract MappingStructPractice {
+
+    // Declare a student structure having three attriutes
+    struct Student{
+        string name;
+        string email;
+        bool isAttended;
+
+    }
+
+
+    // Declare a mapping from address to struct Student
+    mapping (address => Student) private students;
+
+    // Declare a function to set student attendance 
+    function setStudentAttendance (address _addr, string memory _name, string memory _email, bool _isAttended) public {
+        students[_addr] = Student ({
+            name: _name,
+            email: _email,
+            isAttended: _isAttended
+        });
 
 }
+    // Declare a funtion to get studetn attendance info
+    function getStudentAttendance (address _addr) public view returns (string memory, string memory, bool) {
+     return (students[_addr].name,
+            students[_addr].email, 
+            students[_addr].isAttended
+            );
+}
+
+// Declare a funtion to toggle the student attendance
+    function toggleStudentAttendance (address _addr) public {
+        students[_addr].isAttended = !students[_addr].isAttended;   
+}
+
+}
+}
+```
 
 ```
